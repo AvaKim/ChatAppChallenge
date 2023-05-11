@@ -24,3 +24,7 @@ The chat bar will display what is selected and there is a "Send" button inside t
 
 But of course the simplest prototype can just have a dropdown (the ugly built-in UI, sorry unity) for the list of string
 ok unity is installed
+
+nvm another 5 minutes resolving packages on intial bootup ... and i have to set up mirror too, i think we give up on the 'try every solution' idea it's going to take up too much time. i guess i could do it on the weekends, we'll see
+UGH SO SLOW
+BRRRRR
