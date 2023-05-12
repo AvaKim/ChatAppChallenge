@@ -21,7 +21,7 @@ public class MainMenuHUD : MonoBehaviour
 
     [SerializeField] private Button joinButton;
     [SerializeField] private Button hostButton;
-    [SerializeField] private TMP_InputField playerNameField;
+    // private TMP_InputField playerNameField;
 
     // Start is called before the first frame update
     private void Start()
@@ -35,7 +35,7 @@ public class MainMenuHUD : MonoBehaviour
 
         joinButton.onClick.AddListener(OnJoinButtonClick);
         hostButton.onClick.AddListener(OnHostButtonClick);
-        playerNameField.onValueChanged.AddListener(OnPlayerNameChanged);
+        // playerNameField.onValueChanged.AddListener(OnPlayerNameChanged);
     }
     
     

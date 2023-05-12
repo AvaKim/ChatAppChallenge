@@ -36,8 +36,8 @@ public class ChatManager : NetworkBehaviour
         Message msg = new Message
         {
             text = message,
-            timestamp = System.DateTime.Now.Hour + ":" + System.DateTime.Now.Minute,
-            sender = sender
+            // timestamp = System.DateTime.Now.Hour + ":" + System.DateTime.Now.Minute,
+            // sender = sender
         };
         messageList.Add(msg);
 
@@ -100,35 +100,11 @@ public class ChatManager : NetworkBehaviour
         }
         
     }
-
-    // private override void OnStartClient()
-    // {
-    //     _networkManager.ClientManager.RegisterBroadcast<PlayerInfo>(OnPlayerJoined);
-    // }
-    //
-    // private override void OnStopClient()
-    // {
-    //     _networkManager.ClientManager.UnregisterBroadcast<PlayerInfo>(OnPlayerJoined);
-    // }
-
-
-    // private void OnPlayerJoined(string playerName)
-    // {
-    //     Debug.Log($"Player {playerName} has joined");
-    // }
-}
-
-
-
-public class ChatHistory : NetworkBehaviour
-{
-    private List<Message> messageList = new List<Message>();
-    
 }
 
 public struct Message : IBroadcast
 {
     public string text;
-    public string timestamp;
-    public string sender;
+    // public string timestamp;
+    // public string sender;
 }
