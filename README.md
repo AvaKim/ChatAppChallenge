@@ -1,30 +1,30 @@
 # PlayTodayChatAppChallenge
-To the Senior dev role here we go!!
-
-Downloading Unity right now on my surface Pro 9... please work please
-
-Since the task seems fairly easy I want to go extra mile to impress them, but what should I do?
-1. Make the solution in every multiplayer system; Mirror, Fishnet, Netcode, etc I kinda always wanted to try Netcode so this might be a great opportunity
-2. Just make one but make it super cool and juicy with customized buttons and animations and vfx and polish it
-3. Embed AI? make GPT decide the content of the strings... ayo that'd be cool but it'll get a bit heavy since i'll have to check for connection and all that
-
-HMMMMMMMMMMMM
-
-i think first of all i start as small and simple as possible using what im familiar with, mirror, then try out 1 and then pick my favourite one and then try out 2 or 3
 
 
-unity still downloading, library wifi seems really slow ... or it might be my os :(  welp
+Things to note:
 
-hmm i can start by sketching the rough design i guess
 
-so it's going to have a list of string, and these will be displayed in UI buttons
-Buttons should be contained within the Horizontal layout group component, right above the chat bar? i guess. and you may swipe it left or right to see more options
-The chat bar will display what is selected and there is a "Send" button inside the chat bar
-![test](https://github.com/AvaKim/PlayTodayChatAppChallenge/assets/97994376/8776b130-1bd0-47cf-83e4-a40c6e7ac44d)
 
-But of course the simplest prototype can just have a dropdown (the ugly built-in UI, sorry unity) for the list of string
-ok unity is installed
+[MAIN MENU]
+The Join button....
+The Host button ...
 
-nvm another 5 minutes resolving packages on intial bootup ... and i have to set up mirror too, i think we give up on the 'try every solution' idea it's going to take up too much time. i guess i could do it on the weekends, we'll see
-UGH SO SLOW
-BRRRRR
+enabled when the input field...
+
+DefaultScene component in NetworkManager opens the specified Scene when the ClientManager.StartConnection method is called. In this case, it is the Chat scene (Scene Index 1 in the Build Settings).
+
+PlayerSpawner component in NetworkManager spawns the specifed player prefab to the scene when a client connects to the server.
+
+NetworkObject component is attached to Player GameObject, as the Player component implements NetworkBehaviour.
+
+NetworkBehaviour - https://fish-networking.gitbook.io/docs/manual/guides/network-behaviour-guides
+
+The [SyncBar] attribute
+- If the value of the variable changes on the server, the change gets applied to the connected clients.
+
+The [ServerRpc] attribute allows code to be executed on the server side from the client.
+
+[CHAT SCENE]
+
+Inside the Chat Scene is a GameManager object. This is a singleton object that syncs data to all the players.
+
