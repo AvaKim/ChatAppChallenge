@@ -2,6 +2,8 @@ Thank you for your time reviewing my application.
 
 To test the chat app, you can follow the steps:
 
+0. Press the green 'Code' button on the top right corner, and click on 'Download zip'. Extract all.
+
 1. Open 'PlayToday Chat App Challenge' inside the Build folder.
 
 2. Press Play and click on Host to start a local server.
