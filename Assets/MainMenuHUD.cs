@@ -8,14 +8,16 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Net.NetworkInformation;
 using System.Threading.Tasks;
+using FishNet.Broadcast;
 using FishNet.Managing.Server;
+using FishNet.Object;
 using FishNet.Transporting;
 using Ping = System.Net.NetworkInformation.Ping;
 
 public class MainMenuHUD : MonoBehaviour
 {
     private NetworkManager _networkManager;
-    public string playerName;
+    [SerializeField] private string playerName;
 
     [SerializeField] private Button joinButton;
     [SerializeField] private Button hostButton;
@@ -54,8 +56,7 @@ public class MainMenuHUD : MonoBehaviour
 
     private void OnJoinButtonClick()
     {
-        Debug.Log("Connecting to the server");
-        _networkManager.ClientManager.StartConnection();
+        JoinServer();
     }
     
     private void OnHostButtonClick()
@@ -67,9 +68,13 @@ public class MainMenuHUD : MonoBehaviour
     {
         Debug.Log("Starting Server");
         _networkManager.ServerManager.StartConnection();
+        JoinServer();
+    }
 
+    private void JoinServer()
+    {
         Debug.Log("Connecting to the server");
         _networkManager.ClientManager.StartConnection();
-        
     }
+
 }
