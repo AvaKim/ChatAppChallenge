@@ -1,18 +1,21 @@
+using System;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using FishNet.Managing;
 using System.Collections.Generic;
+using FishNet;
+using FishNet.Broadcast;
+using FishNet.Connection;
 using UnityEngine;
 
 public class ChatManager : NetworkBehaviour
 {
     private NetworkManager _networkManager;
+    private ChatHUD chatHUD;
     public static ChatManager Instance { get; private set; } // singleton
 
-    [SerializeField] private List<Message> messageList = new List<Message>();
-    
-    // Entire chat record of the server during application runtime. Destroyed on scene exit.
-    [SyncObject] public readonly SyncList<ChatHistory> chatHistory = new();
+    // List of messages
+    [SyncObject] private readonly SyncList<Message> messageList = new ();
     
     // List of all connected players
     [SyncObject] public readonly SyncList<Player> players = new();
@@ -28,15 +31,53 @@ public class ChatManager : NetworkBehaviour
         }
     }
 
-    public void SendChatMessage(string message)
+    public void SendChatMessage(string sender, string message)
     {
-        Message msg = new Message();
-        msg.text = message;
-        messageList.Add(msg);
-        
+        if(InstanceFinder.IsServer)
+        {
+            Message msg = new Message
+            {
+                text = message,
+                timestamp = System.DateTime.Now.Hour + ":" + System.DateTime.Now.Minute,
+                sender = sender
+            };
+            messageList.Add(msg);
+
+            InstanceFinder.ServerManager.Broadcast(msg);
+        }
+    }
+
+    private void OnEnable()
+    {
+        InstanceFinder.ClientManager.RegisterBroadcast<Message>(OnServerMessageReceived);
+        InstanceFinder.ServerManager.RegisterBroadcast<Message>(OnClientMessageReceived);
+    }
+
+    private void OnDisable()
+    {
+        InstanceFinder.ClientManager.UnregisterBroadcast<Message>(OnServerMessageReceived);
+        InstanceFinder.ServerManager.UnregisterBroadcast<Message>(OnClientMessageReceived);
+    }
+
+    /// <summary>
+    /// Called on client side when received a message from server
+    /// </summary>
+    /// <param name="msg"></param>
+    private void OnServerMessageReceived(Message msg)
+    {
+        chatHUD.UpdateChatPanel(msg);
     }
     
-    
+    /// <summary>
+    /// Called on server side when received a message from client
+    /// </summary>
+    /// <param name="networkConnection">username and other sensitive player data should be passed through NetworkConnection later on</param>
+    /// <param name="msg"></param>
+    private void OnClientMessageReceived(NetworkConnection networkConnection, Message msg)
+    {
+        InstanceFinder.ServerManager.Broadcast(msg);
+    }
+
 
     private void Start()
     {
@@ -46,6 +87,14 @@ public class ChatManager : NetworkBehaviour
             Debug.LogError("NetworkManager not found, Chat will not function.");
             return;
         }
+        
+        chatHUD = FindObjectOfType<ChatHUD>();
+        if (chatHUD == null)
+        {
+            Debug.LogError("Chat HUD not found, Chat will not function.");
+            return;
+        }
+        
     }
 
     // private override void OnStartClient()
@@ -73,9 +122,9 @@ public class ChatHistory : NetworkBehaviour
     
 }
 
-public class Message
+public struct Message : IBroadcast
 {
     public string text;
-    // public string dateTime;
-    // public string sender;
+    public string timestamp;
+    public string sender;
 }

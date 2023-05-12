@@ -56,7 +56,8 @@ public class MainMenuHUD : MonoBehaviour
 
     private void OnJoinButtonClick()
     {
-        JoinServer();
+        Debug.Log("Connecting to the server");
+        _networkManager.ClientManager.StartConnection();
     }
     
     private void OnHostButtonClick()
@@ -68,13 +69,8 @@ public class MainMenuHUD : MonoBehaviour
     {
         Debug.Log("Starting Server");
         _networkManager.ServerManager.StartConnection();
-        JoinServer();
-    }
-
-    private void JoinServer()
-    {
+        
         Debug.Log("Connecting to the server");
         _networkManager.ClientManager.StartConnection();
     }
-
 }

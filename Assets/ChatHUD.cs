@@ -46,19 +46,24 @@ public class ChatHUD : MonoBehaviour
         // if (!IsOwner)
         //     return;
         
-        
-
         if (Input.GetKeyDown(KeyCode.Return)) // On Enter key
         {
             // Send msg to server
-            ChatManager.Instance.SendMessage(chatText.text);
-            
-            // Update Chat HUD
-            GameObject newTextUI = Instantiate(chatTextUI, chatPanel.transform); 
-            newTextUI.GetComponent<TMP_Text>().text = chatText.text;
+            ChatManager.Instance.SendChatMessage("name",chatText.text);
             
         }
         
+    }
+
+    /// <summary>
+    /// Updates Chat HUD so that new message gets displayed on client.
+    /// </summary>
+    /// <param name="msg"></param>
+    public void UpdateChatPanel(Message msg)
+    {
+        GameObject newTextUI = Instantiate(chatTextUI, chatPanel.transform); 
+        newTextUI.GetComponent<TMP_Text>().text = chatText.text;
+
     }
 
     public void OnMessageReceived(string message)
