@@ -15,8 +15,7 @@ using Ping = System.Net.NetworkInformation.Ping;
 public class MainMenuHUD : MonoBehaviour
 {
     private NetworkManager _networkManager;
-
-    [SerializeField] private string playerName;
+    public string playerName;
 
     [SerializeField] private Button joinButton;
     [SerializeField] private Button hostButton;
