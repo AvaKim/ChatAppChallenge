@@ -33,17 +33,21 @@ public class ChatManager : NetworkBehaviour
 
     public void SendChatMessage(string sender, string message)
     {
+        Message msg = new Message
+        {
+            text = message,
+            timestamp = System.DateTime.Now.Hour + ":" + System.DateTime.Now.Minute,
+            sender = sender
+        };
+        messageList.Add(msg);
+
         if(InstanceFinder.IsServer)
         {
-            Message msg = new Message
-            {
-                text = message,
-                timestamp = System.DateTime.Now.Hour + ":" + System.DateTime.Now.Minute,
-                sender = sender
-            };
-            messageList.Add(msg);
-
             InstanceFinder.ServerManager.Broadcast(msg);
+        }
+        else
+        {
+            InstanceFinder.ClientManager.Broadcast(msg);
         }
     }
 
