@@ -12,7 +12,12 @@ public class ChatHUD : MonoBehaviour
 
     private NetworkManager _networkManager;
 
-    
+
+
+    [SerializeField]
+    private GameObject chatTextUI; // to instantiate new text ui instance
+    [SerializeField]
+    private Transform chatPanel; // to spawn the new text UI under
     [SerializeField]
     private TMP_Text chatText;
     
@@ -29,15 +34,37 @@ public class ChatHUD : MonoBehaviour
         //     return;
         // }
         //
+        
+        
         chatOptionDropdown.onValueChanged.AddListener(delegate { OnDropdownValueChanged(chatOptionDropdown); });
     }
 
     // Update is called once per frame
     void Update()
     {
+        // // Only execute on the local client side
+        // if (!IsOwner)
+        //     return;
+        
+        
+
+        if (Input.GetKeyDown(KeyCode.Return)) // On Enter key
+        {
+            // Send msg to server
+            ChatManager.Instance.SendMessage(chatText.text);
+            
+            // Update Chat HUD
+            GameObject newTextUI = Instantiate(chatTextUI, chatPanel.transform); 
+            newTextUI.GetComponent<TMP_Text>().text = chatText.text;
+            
+        }
         
     }
 
+    public void OnMessageReceived(string message)
+    {
+
+    }
     private void OnDropdownValueChanged(TMP_Dropdown dropdown)
     {
         chatText.text = dropdown.captionText.text;

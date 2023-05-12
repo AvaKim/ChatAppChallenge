@@ -8,6 +8,8 @@ public class ChatManager : NetworkBehaviour
 {
     private NetworkManager _networkManager;
     public static ChatManager Instance { get; private set; } // singleton
+
+    [SerializeField] private List<Message> messageList = new List<Message>();
     
     // Entire chat record of the server during application runtime. Destroyed on scene exit.
     [SyncObject] public readonly SyncList<ChatHistory> chatHistory = new();
@@ -25,6 +27,16 @@ public class ChatManager : NetworkBehaviour
             Destroy(this);
         }
     }
+
+    public void SendChatMessage(string message)
+    {
+        Message msg = new Message();
+        msg.text = message;
+        messageList.Add(msg);
+        
+    }
+    
+    
 
     private void Start()
     {
@@ -57,5 +69,13 @@ public class ChatManager : NetworkBehaviour
 
 public class ChatHistory : NetworkBehaviour
 {
+    private List<Message> messageList = new List<Message>();
     
+}
+
+public class Message
+{
+    public string text;
+    // public string dateTime;
+    // public string sender;
 }
