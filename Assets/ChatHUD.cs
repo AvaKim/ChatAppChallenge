@@ -62,7 +62,7 @@ public class ChatHUD : MonoBehaviour
     public void UpdateChatPanel(Message msg)
     {
         GameObject newTextUI = Instantiate(chatTextUI, chatPanel.transform); 
-        newTextUI.GetComponent<TMP_Text>().text = chatText.text;
+        newTextUI.GetComponent<TMP_Text>().text = msg.text;
 
     }
 
