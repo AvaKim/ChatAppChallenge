@@ -48,7 +48,7 @@ MonoBehaviour:
   _componentIndexCache: 0
   _addedNetworkObject: {fileID: 8790550643510697357}
   _networkObjectCache: {fileID: 8790550643510697357}
-  username: 
+  playerName: 
 --- !u!114 &8790550643510697357
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -73,10 +73,10 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 0
+  <PrefabId>k__BackingField: 7
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 2571393946
   <SceneId>k__BackingField: 0
-  <AssetPathHash>k__BackingField: 16799108592042421765
+  <AssetPathHash>k__BackingField: 7807759643866311769
   _sceneNetworkObjects:
   - {fileID: 8790550643510697357}
