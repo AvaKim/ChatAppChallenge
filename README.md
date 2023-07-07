@@ -1,5 +1,6 @@
-**How to use
-**
+A sample Unity app demonstrating multiplayer chat system
+
+<h1>How to use</h1>
 
 0. Press the green 'Code' button on the top right corner, and click on 'Download zip'. Extract all.
 
